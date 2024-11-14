@@ -22,13 +22,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.pampiway.R
 import com.example.pampiway.ui.theme.darkPink
 import com.example.pampiway.ui.theme.lightPink
+import com.example.pampiway.utility.SPLASHSCREEN3
+import kotlinx.coroutines.delay
 
-@Preview
+//@Preview
 @Composable
-fun ExpandingCircleScreen() {
+fun ExpandingCircleScreen(
+    navController: NavController
+) {
     // Define colors for the circles
     val outerCircleColor = darkPink
     val innerCircleColor = lightPink
@@ -59,6 +64,12 @@ fun ExpandingCircleScreen() {
 //        delay(100)
         outerCircleSizeTarget = targetOuterSize
         innerCircleSizeTarget = targetInnerSize
+
+        // Delay until animation is done
+        delay(4000)
+
+        // Navigate to the next screen (e.g., SplashScreen3)
+        navController.navigate(SPLASHSCREEN3)
     }
 
 

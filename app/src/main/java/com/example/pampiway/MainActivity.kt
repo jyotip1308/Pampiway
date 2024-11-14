@@ -1,44 +1,47 @@
 package com.example.pampiway
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.pampiway.splashScreens.ExpandingCircleScreen
-import com.example.pampiway.splashScreens.SplashScreen1
+import com.example.pampiway.navigationScreen.Navigation
+import com.example.pampiway.network.NetworkConnectivityHelper
 import com.example.pampiway.ui.theme.PampiwayTheme
+import com.google.android.material.snackbar.Snackbar
+
 
 class MainActivity : ComponentActivity() {
+
+    private lateinit var networkConnectivityHelper: NetworkConnectivityHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        networkConnectivityHelper = NetworkConnectivityHelper(this) { isConnected ->
+            showNetworkToast(isConnected)
+        }
+
         enableEdgeToEdge()
         setContent {
             PampiwayTheme {
-                ExpandingCircleScreen()
+                Navigation()
             }
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+    override fun onStart() {
+        super.onStart()
+        networkConnectivityHelper.registerNetworkCallback()
+    }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    PampiwayTheme {
-        Greeting("Android")
+    override fun onStop() {
+        super.onStop()
+        networkConnectivityHelper.unregisterNetworkCallback()
+    }
+
+    private fun showNetworkToast(isConnected: Boolean) {
+        val message = if (isConnected) "Connected" else "Connection Lost"
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
