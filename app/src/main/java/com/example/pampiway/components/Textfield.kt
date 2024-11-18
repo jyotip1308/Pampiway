@@ -25,35 +25,47 @@ fun InputTextField(
     label: String,
     maxLine: Int = 1,
     onTextChange: (String) -> Unit,
-    onImeAction:() -> Unit = {},
-    color: Color,
-    iconResId: Int,
+    onImeAction: () -> Unit = {},
+    color: Color = Color.Black,
+    iconResId: Int? = null, // Set to null by default for leading icon
+    trailingIconResId: Int? = null, // Set to null by default for trailing icon
     maxLength: Int,
     keyboardOptions: KeyboardOptions
-
 ) {
-    OutlinedTextField(value = text,
-        onValueChange = {val newText = it.take(maxLength)
-            onTextChange(newText)},
+    OutlinedTextField(
+        value = text,
+        onValueChange = { val newText = it.take(maxLength)
+            onTextChange(newText)
+        },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = Color.Black,
             unfocusedBorderColor = Color.Gray
         ),
         maxLines = maxLine,
-        modifier = Modifier.fillMaxWidth()
-            .padding(top = 6.dp, start = 8.dp, end = 8.dp),
+        modifier = modifier.fillMaxWidth(),
         label = { Text(text = label, fontSize = 14.sp, color = Color.Gray) },
         textStyle = TextStyle(fontSize = 14.sp, color = Color.Black),
         keyboardOptions = keyboardOptions,
-        leadingIcon = {
-            Icon(
-                painter = painterResource(id = iconResId),
-                contentDescription = "Password Icon",
-                modifier = Modifier
-                    .size(30.dp)
-                    .fillMaxWidth(),
-                tint = Color.Unspecified
-            )
-        }
+        leadingIcon = if (iconResId != null) {
+            {
+                Icon(
+                    painter = painterResource(id = iconResId),
+                    contentDescription = "Leading Icon",
+                    modifier = Modifier.size(24.dp),
+                    tint = Color.Unspecified
+                )
+            }
+        } else null,
+        trailingIcon = if (trailingIconResId != null) {
+            {
+                Icon(
+                    painter = painterResource(id = trailingIconResId),
+                    contentDescription = "Trailing Icon",
+                    modifier = Modifier.size(24.dp),
+                    tint = Color.Unspecified
+                )
+            }
+        } else null
     )
 }
+

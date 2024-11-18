@@ -59,4 +59,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation(libs.androidx.navigation.compose)
+
+    // Add Play Services Location dependency
+    implementation(libs.play.services.location)
+
+    implementation(libs.androidx.compose.material)
+
 }

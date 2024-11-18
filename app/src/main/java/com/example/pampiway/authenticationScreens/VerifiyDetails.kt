@@ -30,6 +30,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -40,9 +41,9 @@ import com.example.pampiway.ui.theme.grey
 import com.example.pampiway.utility.LOCATION
 import com.example.pampiway.utility.firasans_medium
 
-//@Preview
+@Preview
 @Composable
-fun Verification(navController: NavController){
+fun VerifyDetails(/*navController: NavController*/){
 
 
     Column(modifier = Modifier.fillMaxSize()
@@ -63,34 +64,10 @@ fun Verification(navController: NavController){
             fontFamily = firasans_medium
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
 
-        val styledText = buildAnnotatedString {
-            // First part with bold and red color
-            withStyle(style = SpanStyle(color = grey,
-                fontSize = 12.sp,
-                fontFamily = firasans_medium)
-            ) {
-                append("Enter otp sent to ")
-            }
-            withStyle(style = SpanStyle(color = Color.Black,
-                fontWeight = FontWeight.Bold,
-                fontFamily = firasans_medium, fontSize = 12.sp)
-            ) {
-                append("+916281391283 ")
-            }
+        Spacer(modifier = Modifier.height(28.dp))
 
-            withStyle(style = SpanStyle(color = grey,
-                fontSize = 12.sp)
-            ) {
-                append("Via Sms")
-            }
-        }
-
-        // Display the styled text in a Text composable
-        Text(text = styledText,)
-
-            Text(text = "Enter OTP",
+        Text(text = "Enter OTP",
                 fontSize = 15.sp,
                 color = Color.Black,
                 modifier = Modifier.padding(start = 8.dp, top = 8.dp),
@@ -98,29 +75,25 @@ fun Verification(navController: NavController){
                 fontFamily = firasans_medium
             )
 
-        OTPInput {
+        EnterOTPInput {
 
         }
 
-            Spacer(modifier = Modifier.height(64.dp))
+            Spacer(modifier = Modifier.height(84.dp))
 
             Column(modifier = Modifier.fillMaxSize(0.5f),
                 verticalArrangement = Arrangement.Bottom){
             }
-            RedButton("Verify & Continue", buttonHeight = 45.dp) {
-                navController.navigate(LOCATION)
+            RedButton("Verify", buttonHeight = 45.dp)
+            {
+//                navController.navigate(LOCATION)
             }
 
-        Spacer(modifier = Modifier.height(8.dp))
-
-        VerifyStyleText()
-
-
+        }
     }
-}
 
 @Composable
-fun OTPInput(
+fun EnterOTPInput(
     otpText: String = "",
     onOtpTextChange: (String) -> Unit,
 ) {
@@ -196,39 +169,7 @@ fun OTPInput(
             modifier = Modifier.padding(start = 8.dp)
         )
 
-        Text(text = "00:59")
+        Text(text = "00:25")
     }
 
-}
-
-@Composable
-fun VerifyStyleText() {
-    // Use buildAnnotatedString to define text with multiple styles
-    val styledText = buildAnnotatedString {
-        // First part with bold and red color
-        withStyle(style = SpanStyle(color = grey,
-            fontSize = 12.sp,
-            fontFamily = firasans_medium)) {
-            append("By clicking,i accept the ")
-        }
-        withStyle(style = SpanStyle(color = Color.Black,
-            fontFamily = firasans_medium, fontSize = 12.sp)) {
-            append("terms&conditions ")
-        }
-        withStyle(style = SpanStyle(color = grey,
-            fontSize = 12.sp)) {
-            append("& ")
-        }
-
-        withStyle(style = SpanStyle(color = Color.Black,
-            fontSize = 12.sp,
-            fontFamily = firasans_medium)) {
-            append("privacy policy")
-        }
-    }
-
-    // Display the styled text in a Text composable
-    Text(
-        text = styledText,
-    )
 }
