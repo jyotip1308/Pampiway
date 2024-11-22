@@ -24,15 +24,17 @@ import androidx.navigation.NavController
 import com.example.pampiway.R
 import com.example.pampiway.ui.theme.grey
 import com.example.pampiway.ui.theme.red
+import com.example.pampiway.utility.DIALOGBOX
 import com.example.pampiway.utility.firaSans_regular
+import com.example.pampiway.utility.firasans_bold
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.launch
 
-@Preview
+//@Preview
 @Composable
 fun ManualLocation(
-//    navController: NavController,
+    navController: NavController,
     fusedLocationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(LocalContext.current),
     onCurrentLocationClicked: () -> Unit = {}
 ) {
@@ -60,12 +62,13 @@ fun ManualLocation(
             .padding(start = 16.dp, end = 16.dp, top = 28.dp)
     ) {
         // Back button and title
-        Row(
+        Row(modifier = Modifier.padding(top = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.arrow_back),
                 contentDescription = "Back",
+                tint = Color.Black,
                 modifier = Modifier
                     .size(24.dp)
                     .clickable { /* handle back press */ }
@@ -73,6 +76,8 @@ fun ManualLocation(
             Spacer(modifier = Modifier.width(8.dp))
             Text("Search for location",
                 fontSize = 20.sp,
+                color = Color.Black,
+                fontFamily = firasans_bold,
                 fontWeight = FontWeight.Bold)
         }
 
@@ -135,7 +140,7 @@ fun ManualLocation(
             // Blue "Add Location" button
             Button(
                 onClick = {
-                    // Handle "Add Location" button click here
+                   navController.navigate(DIALOGBOX)
                 },
                 colors = ButtonDefaults.buttonColors(Color.Blue),
             ) {

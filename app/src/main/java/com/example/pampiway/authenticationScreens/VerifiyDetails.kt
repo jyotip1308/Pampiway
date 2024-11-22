@@ -19,6 +19,10 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,25 +37,28 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.pampiway.R
 import com.example.pampiway.components.RedButton
 import com.example.pampiway.ui.theme.green
 import com.example.pampiway.ui.theme.grey
-import com.example.pampiway.utility.LOCATION
+import com.example.pampiway.utility.VERIFYDETAILS
 import com.example.pampiway.utility.firasans_medium
+import com.example.pampiway.utility.home
 
-@Preview
+//@Preview
 @Composable
-fun VerifyDetails(/*navController: NavController*/){
+fun VerifyDetails(navController: NavHostController) {
 
+    var otpText by remember { mutableStateOf("") }
 
     Column(modifier = Modifier.fillMaxSize()
         .background(color = Color.White)
-        .padding(16.dp))
+        .padding(start = 16.dp, end = 16.dp, top = 36.dp))
     {
         Icon(painter = painterResource(R.drawable.arrow_back),
             contentDescription = "Back Arrow",
+            tint = Color.Black,
             modifier = Modifier.size(30.dp)
         )
 
@@ -75,9 +82,10 @@ fun VerifyDetails(/*navController: NavController*/){
                 fontFamily = firasans_medium
             )
 
-        EnterOTPInput {
-
-        }
+        EnterOTPInput(
+            otpText = otpText,
+            onOtpTextChange = { newOtp -> otpText = newOtp } // Update OTP state
+        )
 
             Spacer(modifier = Modifier.height(84.dp))
 
@@ -86,7 +94,8 @@ fun VerifyDetails(/*navController: NavController*/){
             }
             RedButton("Verify", buttonHeight = 45.dp)
             {
-//                navController.navigate(LOCATION)
+                navController.navigate(home)
+
             }
 
         }
@@ -128,16 +137,20 @@ fun EnterOTPInput(
                     Column(verticalArrangement = Arrangement.spacedBy(6.dp),
                         horizontalAlignment = Alignment.CenterHorizontally) {
 
-                        Text(text = num.toString(),
-                            style = TextStyle(
-                                fontSize = 16.sp
-                            )
-                        )
+
                         Box(modifier = Modifier
                             .width(50.dp)
                             .height(50.dp)
-                            .border(width = 1.dp, color = Color.Gray)
-                        )
+                            .border(width = 1.dp, color = Color.Gray),
+                            contentAlignment = Alignment.Center
+                        ){
+                            Text(text = num.toString(),
+                                color = Color.Black,
+                                style = TextStyle(
+                                    fontSize = 16.sp
+                                )
+                            )
+                        }
                     }
                 }
             }
@@ -169,7 +182,13 @@ fun EnterOTPInput(
             modifier = Modifier.padding(start = 8.dp)
         )
 
-        Text(text = "00:25")
+
+        Text(text = "00:25",
+            color = Color.Black,
+            style = TextStyle(
+                fontSize = 16.sp
+            )
+        )
     }
 
 }

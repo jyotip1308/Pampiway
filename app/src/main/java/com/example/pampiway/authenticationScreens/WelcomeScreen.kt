@@ -45,6 +45,7 @@ fun Welcome(
 
         Text(text = "Welcome!",
             fontSize = 30.sp,
+            color = Color.Black,
             fontWeight = FontWeight.Bold,
             fontFamily = firasans_medium
         )

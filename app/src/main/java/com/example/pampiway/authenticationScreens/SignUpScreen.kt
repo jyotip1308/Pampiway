@@ -5,10 +5,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -20,17 +18,19 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.pampiway.R
 import com.example.pampiway.components.InputTextField
 import com.example.pampiway.components.RedButton
 import com.example.pampiway.ui.theme.grey
 import com.example.pampiway.ui.theme.red
+import com.example.pampiway.utility.VERIFYDETAILS
 import com.example.pampiway.utility.firaSans_regular
 import com.example.pampiway.utility.firasans_medium
 
-@Preview
+//@Preview
 @Composable
-fun SignUpScreen() {
+fun SignUpScreen(navController: NavHostController) {
     val context = LocalContext.current
     var fullName by remember { mutableStateOf("") }
     var phoneNumber by remember { mutableStateOf("") }
@@ -42,10 +42,11 @@ fun SignUpScreen() {
         .background(color = Color.White)
         .padding(16.dp))
     {
-        Row(){
+        Row(modifier = Modifier.padding(top = 26.dp)){
 
             Icon(painter = painterResource(R.drawable.arrow_back),
                 contentDescription = "Back Arrow",
+                tint = Color.Black,
                 modifier = Modifier.size(30.dp)
             )
 
@@ -171,7 +172,9 @@ fun SignUpScreen() {
         Spacer(modifier = Modifier.height(28.dp))
 
         // Continue Button
-        RedButton("Continue", buttonHeight = 40.dp) { }
+        RedButton("Continue", buttonHeight = 40.dp) {
+            navController.navigate(VERIFYDETAILS)
+        }
 
         Spacer(modifier = Modifier.height(10.dp))
 

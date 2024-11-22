@@ -19,6 +19,10 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -45,12 +49,16 @@ import com.example.pampiway.utility.firasans_medium
 fun Verification(navController: NavController){
 
 
+    var otpText by remember { mutableStateOf("") } // State for OTP input
+
     Column(modifier = Modifier.fillMaxSize()
         .background(color = Color.White)
-        .padding(16.dp))
+        .padding(start = 16.dp, end = 16.dp, top = 36.dp))
+
     {
         Icon(painter = painterResource(R.drawable.arrow_back),
             contentDescription = "Back Arrow",
+            tint = Color.Black,
             modifier = Modifier.size(30.dp)
         )
 
@@ -98,11 +106,11 @@ fun Verification(navController: NavController){
                 fontFamily = firasans_medium
             )
 
-        OTPInput {
+        OTPInput  (otpText = otpText,
+        onOtpTextChange = { newOtp -> otpText = newOtp }) // Update OTP state
 
-        }
 
-            Spacer(modifier = Modifier.height(64.dp))
+        Spacer(modifier = Modifier.height(64.dp))
 
             Column(modifier = Modifier.fillMaxSize(0.5f),
                 verticalArrangement = Arrangement.Bottom){
@@ -155,16 +163,19 @@ fun OTPInput(
                     Column(verticalArrangement = Arrangement.spacedBy(6.dp),
                         horizontalAlignment = Alignment.CenterHorizontally) {
 
-                        Text(text = num.toString(),
-                            style = TextStyle(
-                                fontSize = 16.sp
-                            )
-                        )
                         Box(modifier = Modifier
                             .width(50.dp)
                             .height(50.dp)
-                            .border(width = 1.dp, color = Color.Gray)
-                        )
+                            .border(width = 1.dp, color = Color.Gray),
+                            contentAlignment = Alignment.Center
+                        ){
+                            Text(text = num.toString(),
+                                color = Color.Black,
+                                style = TextStyle(
+                                    fontSize = 16.sp
+                                )
+                            )
+                        }
                     }
                 }
             }
@@ -196,7 +207,12 @@ fun OTPInput(
             modifier = Modifier.padding(start = 8.dp)
         )
 
-        Text(text = "00:59")
+        Text(text = "00:59",
+            color = Color.Black,
+            style = TextStyle(
+                fontSize = 12.sp
+            )
+        )
     }
 
 }

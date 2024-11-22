@@ -9,23 +9,32 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.pampiway.R
+import com.example.pampiway.utility.booking
+import com.example.pampiway.utility.food
+import com.example.pampiway.utility.home
+import com.example.pampiway.utility.mart
+import com.example.pampiway.utility.service
 
 // Bottom Navigation Bar
 @Composable
 fun BottomNavigationBar(navController: NavController) {
-    val items = listOf("home", "food", "mart", "service", "booking")
+    val items = listOf(home, food, mart, service, booking)
 
-    BottomNavigation {
+    BottomNavigation (
+        backgroundColor = Color.White,
+    ){
         items.forEach { screen ->
             BottomNavigationItem(
+
                 icon = {
                     when (screen) {
-                        "home" -> Icon(Icons.Default.Home, contentDescription = "Home")
-                        "food" -> Icon(painter = painterResource(R.drawable.food),
+                        home -> Icon(Icons.Default.Home, contentDescription = "Home")
+                        food -> Icon(painter = painterResource(R.drawable.food),
                             modifier = Modifier.size(20.dp),
                             contentDescription = "Food")
                         "mart" -> Icon(painter = painterResource(R.drawable.mart),
@@ -50,7 +59,9 @@ fun BottomNavigationBar(navController: NavController) {
                         launchSingleTop = true
                         restoreState = true
                     }
-                }
+                },
+                selectedContentColor = Color.Red, // Red for selected items
+                unselectedContentColor = Color.Black // Black for unselected items
             )
         }
     }

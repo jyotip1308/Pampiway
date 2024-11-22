@@ -50,6 +50,7 @@ fun SplashScreen3(
       Text(text = "“Everything At Your Doorstep”",
           fontSize = 20.sp,
           fontFamily = robot_regular,
+          color = Color.Black,
           fontWeight = FontWeight.SemiBold,
           modifier = Modifier.fillMaxWidth(),
           textAlign = TextAlign.Center
