@@ -17,6 +17,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,66 +40,90 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.pampiway.R
 import com.example.pampiway.components.RedButton
+import com.example.pampiway.components.TopNavigationBar
 import com.example.pampiway.ui.theme.green
 import com.example.pampiway.ui.theme.grey
 import com.example.pampiway.utility.LOCATION
+import com.example.pampiway.utility.MyComponents
 import com.example.pampiway.utility.firasans_medium
 
 //@Preview
 @Composable
 fun Verification(navController: NavController){
 
+    var otpText by remember { mutableStateOf(MyComponents.mainViewModel.otp.value) } // State for OTP input
 
-    var otpText by remember { mutableStateOf("") } // State for OTP input
-
-    Column(modifier = Modifier.fillMaxSize()
-        .background(color = Color.White)
-        .padding(start = 16.dp, end = 16.dp, top = 36.dp))
-
-    {
-        Icon(painter = painterResource(R.drawable.arrow_back),
-            contentDescription = "Back Arrow",
-            tint = Color.Black,
-            modifier = Modifier.size(30.dp)
-        )
-
-        Spacer(modifier = Modifier.height(4.dp))
-
-        Text(text = "Verify your details",
-            fontSize = 22.sp,
-            color = Color.Black,
-            fontWeight = FontWeight.SemiBold,
-            fontFamily = firasans_medium
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        val styledText = buildAnnotatedString {
-            // First part with bold and red color
-            withStyle(style = SpanStyle(color = grey,
-                fontSize = 12.sp,
-                fontFamily = firasans_medium)
-            ) {
-                append("Enter otp sent to ")
-            }
-            withStyle(style = SpanStyle(color = Color.Black,
-                fontWeight = FontWeight.Bold,
-                fontFamily = firasans_medium, fontSize = 12.sp)
-            ) {
-                append("+916281391283 ")
-            }
-
-            withStyle(style = SpanStyle(color = grey,
-                fontSize = 12.sp)
-            ) {
-                append("Via Sms")
-            }
+    Scaffold(
+        topBar = {
+            TopNavigationBar(
+                title = "Verify your details",
+                onBackClick = {  }
+            )
         }
+    ) { it->
 
-        // Display the styled text in a Text composable
-        Text(text = styledText,)
+        Column(
+            modifier = Modifier.fillMaxSize()
+                .background(color = Color.White)
+                .padding(start = 16.dp, end = 16.dp, top = 72.dp)
+        )
 
-            Text(text = "Enter OTP",
+        {
+           /* Icon(
+                painter = painterResource(R.drawable.arrow_back),
+                contentDescription = "Back Arrow",
+                tint = Color.Black,
+                modifier = Modifier.size(30.dp)
+            )
+
+            Spacer(modifier = Modifier.height(4.dp))
+
+            Text(
+                text = "Verify your details",
+                fontSize = 22.sp,
+                color = Color.Black,
+                fontWeight = FontWeight.SemiBold,
+                fontFamily = firasans_medium
+            )*/
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            val styledText = buildAnnotatedString {
+                // First part with bold and red color
+                withStyle(
+                    style = SpanStyle(
+                        color = grey,
+                        fontSize = 12.sp,
+                        fontFamily = firasans_medium
+                    )
+                ) {
+                    append("Enter otp sent to ")
+                }
+                withStyle(
+                    style = SpanStyle(
+                        color = Color.Black,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = firasans_medium, fontSize = 12.sp
+                    )
+                ) {
+                    append("+91 ${MyComponents.mainViewModel.phone_number.value} ")
+                }
+
+                withStyle(
+                    style = SpanStyle(
+                        color = grey,
+                        fontSize = 12.sp
+                    )
+                ) {
+                    append("Via Sms")
+                }
+            }
+
+            // Display the styled text in a Text composable
+            Text(text = styledText,)
+
+            Text(
+                text = "Enter OTP",
                 fontSize = 15.sp,
                 color = Color.Black,
                 modifier = Modifier.padding(start = 8.dp, top = 8.dp),
@@ -106,23 +131,28 @@ fun Verification(navController: NavController){
                 fontFamily = firasans_medium
             )
 
-        OTPInput  (otpText = otpText,
-        onOtpTextChange = { newOtp -> otpText = newOtp }) // Update OTP state
+            OTPInput(otpText = otpText,
+                onOtpTextChange = { newOtp -> otpText = newOtp }) // Update OTP state
 
 
-        Spacer(modifier = Modifier.height(64.dp))
+            Spacer(modifier = Modifier.height(64.dp))
 
-            Column(modifier = Modifier.fillMaxSize(0.5f),
-                verticalArrangement = Arrangement.Bottom){
+            Column(
+                modifier = Modifier.fillMaxSize(0.5f),
+                verticalArrangement = Arrangement.Bottom
+            ) {
             }
             RedButton("Verify & Continue", buttonHeight = 45.dp) {
-                navController.navigate(LOCATION)
+//                navController.navigate(LOCATION)
+                MyComponents.mainViewModel.verification(MyComponents.mainViewModel.phone_number.value, MyComponents.mainViewModel.otp.value)
             }
 
-        Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-        VerifyStyleText()
+            VerifyStyleText()
 
+
+        }
 
     }
 }
@@ -139,7 +169,7 @@ fun OTPInput(
         BasicTextField(
             value = otpText,
             onValueChange = {
-                if (it.length <= 4 ) {
+                if (it.length <= 6 ) {
                     onOtpTextChange.invoke(it)
                 }
             },
@@ -154,7 +184,7 @@ fun OTPInput(
             Row (modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween)
             {
-                repeat(4){index ->
+                repeat(6){index ->
                     val  num = when {
                         index >= otpText.length -> ""
                         else -> otpText[index]

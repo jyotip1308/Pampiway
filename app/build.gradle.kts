@@ -65,4 +65,34 @@ dependencies {
 
     implementation(libs.androidx.compose.material)
 
+    //Viewmodel
+//    val lifecycle_version = "2.6.2"
+
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    // ViewModel utilities for Compose
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+//    val room_version = "2.5.2"
+    implementation(libs.androidx.room.runtime)
+    //Kotlin Extensions and Coroutines support for Room
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
+
+    //Retrofit
+    implementation(libs.retrofit)
+    //gson
+    implementation(libs.gson)
+    implementation(libs.converter.gson)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+
+    //COIL IMAGE
+    implementation(libs.coil.compose)
+
+    implementation (libs.androidx.lifecycle.runtime.ktx.v270)
+    implementation (libs.androidx.lifecycle.livedata.ktx.v270)
+
 }

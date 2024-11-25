@@ -8,23 +8,44 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.pampiway.R
+import com.example.pampiway.components.TopNavigationBar
 import com.example.pampiway.ui.theme.grey
 import com.example.pampiway.ui.theme.red
-import com.example.pampiway.utility.DIALOGBOX
+import com.example.pampiway.utility.MyComponents
 import com.example.pampiway.utility.firaSans_regular
 import com.example.pampiway.utility.firasans_bold
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -55,125 +76,140 @@ fun ManualLocation(
         launcher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .padding(start = 16.dp, end = 16.dp, top = 28.dp)
-    ) {
-        // Back button and title
-        Row(modifier = Modifier.padding(top = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.arrow_back),
-                contentDescription = "Back",
-                tint = Color.Black,
-                modifier = Modifier
-                    .size(24.dp)
-                    .clickable { /* handle back press */ }
+    Scaffold(
+        topBar = {
+            TopNavigationBar(
+                title = "Search for location",
+                onBackClick = { }
             )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text("Search for location",
-                fontSize = 20.sp,
-                color = Color.Black,
-                fontFamily = firasans_bold,
-                fontWeight = FontWeight.Bold)
         }
+    ) { it ->
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Search bar
-        OutlinedTextField(
-            value = searchText,
-            onValueChange = { searchText = it },
-            placeholder = { Text("e.g. mela ka choraya") },
-            leadingIcon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.search_24),
-                    contentDescription = "Search Icon",
-                    tint = red
-                )
-            },
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Use current location button
-
-        Row(modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween) {
-
+                .fillMaxSize()
+                .background(Color.White)
+                .padding(start = 16.dp, end = 16.dp, top = 28.dp)
+        ) {
+/*            // Back button and title
             Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .clickable {
-                        if (permissionGranted) {
-                            coroutineScope.launch {
-                                getLastLocation(fusedLocationClient, context) { location ->
-                                    // Handle current location result here
-                                    onCurrentLocationClicked()
-                                }
-                            }
-                        } else {
-                            launcher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-                        }
-                    }
+                modifier = Modifier.padding(top = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.current_location),
-                    contentDescription = "Current Location Icon",
-                    tint = Color.Unspecified,
-                    modifier = Modifier.size(20.dp)
+                    painter = painterResource(id = R.drawable.arrow_back),
+                    contentDescription = "Back",
+                    tint = Color.Black,
+                    modifier = Modifier
+                        .size(24.dp)
+                        .clickable { *//* handle back press *//* }
                 )
-                Spacer(modifier = Modifier.width(4.dp))
+                Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "use current location",
-                    color = red,
-                    fontWeight = FontWeight.Medium
-                )
-            }
-
-            // Blue "Add Location" button
-            Button(
-                onClick = {
-                   navController.navigate(DIALOGBOX)
-                },
-                colors = ButtonDefaults.buttonColors(Color.Blue),
-            ) {
-                Text(
-                    text = "Add Location",
-                    fontSize = 12.sp,
-                    color = Color.White,
-                    fontFamily = firaSans_regular,
+                    "Search for location",
+                    fontSize = 20.sp,
+                    color = Color.Black,
+                    fontFamily = firasans_bold,
                     fontWeight = FontWeight.Bold
                 )
+            }*/
+
+            Spacer(modifier = Modifier.height(72.dp))
+
+            // Search bar
+            OutlinedTextField(
+                value = searchText,
+                onValueChange = { searchText = it },
+                placeholder = { Text("e.g. mela ka choraya") },
+                leadingIcon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.search_24),
+                        contentDescription = "Search Icon",
+                        tint = red
+                    )
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Use current location button
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .clickable {
+                            if (permissionGranted) {
+                                coroutineScope.launch {
+                                    getLastLocation(fusedLocationClient, context) { location ->
+                                        // Handle current location result here
+                                        onCurrentLocationClicked()
+                                    }
+                                }
+                            } else {
+                                launcher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+                            }
+                        }
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.current_location),
+                        contentDescription = "Current Location Icon",
+                        tint = Color.Unspecified,
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "use current location",
+                        color = red,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+
+                // Blue "Add Location" button
+                Button(
+                    onClick = {
+                        MyComponents.mainViewModel.showDialog()
+                    },
+                    colors = ButtonDefaults.buttonColors(Color.Blue),
+                ) {
+                    Text(
+                        text = "Add Location",
+                        fontSize = 12.sp,
+                        color = Color.White,
+                        fontFamily = firaSans_regular,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Divider(color = Color.Gray, thickness = 0.9.dp)
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Saved addresses section
+            Text(
+                text = "Saved address",
+                fontSize = 16.sp,
+                color = grey,
+                fontFamily = firaSans_regular,
+                fontWeight = FontWeight.Medium
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // Example saved addresses
+            SavedAddressItem(name = "Bus stand rajgarh", iconRes = R.drawable.flag_india)
+            SavedAddressItem(name = "sanju home rajgarh", iconRes = R.drawable.flag_india)
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Divider(color = Color.Gray, thickness = 0.9.dp)
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Saved addresses section
-        Text(
-            text = "Saved address",
-            fontSize = 16.sp,
-            color = grey,
-            fontFamily = firaSans_regular,
-            fontWeight = FontWeight.Medium
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        // Example saved addresses
-        SavedAddressItem(name = "Bus stand rajgarh", iconRes = R.drawable.flag_india)
-        SavedAddressItem(name = "sanju home rajgarh", iconRes = R.drawable.flag_india)
     }
 }
 

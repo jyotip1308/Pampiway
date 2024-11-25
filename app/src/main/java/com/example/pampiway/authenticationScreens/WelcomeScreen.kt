@@ -27,6 +27,7 @@ import com.example.pampiway.components.RedBorderButton
 import com.example.pampiway.components.RedButton
 import com.example.pampiway.ui.theme.grey
 import com.example.pampiway.utility.SIGNINSCREEN
+import com.example.pampiway.utility.SIGNUP
 import com.example.pampiway.utility.firasans_medium
 
 //@Preview
@@ -65,7 +66,7 @@ fun Welcome(
         Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp)){
 
             RedButton("Get Started", buttonHeight = 35.dp) {
-                navController.navigate(SIGNINSCREEN)
+                navController.navigate(SIGNUP)
             }
         }
 
@@ -74,6 +75,7 @@ fun Welcome(
         Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp)) {
 
             RedBorderButton("I have already an account", buttonHeight = 35.dp) {
+                navController.navigate(SIGNINSCREEN)
 
             }
         }

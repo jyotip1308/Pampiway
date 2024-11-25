@@ -11,7 +11,6 @@ import com.example.pampiway.authenticationScreens.SignUpScreen
 import com.example.pampiway.authenticationScreens.Verification
 import com.example.pampiway.authenticationScreens.VerifyDetails
 import com.example.pampiway.authenticationScreens.Welcome
-import com.example.pampiway.components.Add_DeviceDialog
 import com.example.pampiway.location.CurrentLocation
 import com.example.pampiway.location.ManualLocation
 import com.example.pampiway.mainScreens.BookingScreen
@@ -22,11 +21,9 @@ import com.example.pampiway.mainScreens.ServiceScreen
 import com.example.pampiway.splashScreens.ExpandingCircleScreen
 import com.example.pampiway.splashScreens.SplashScreen1
 import com.example.pampiway.splashScreens.SplashScreen3
-import com.example.pampiway.utility.DIALOGBOX
-import com.example.pampiway.utility.food
 import com.example.pampiway.utility.LOCATION
 import com.example.pampiway.utility.MANUALLOCATION
-import com.example.pampiway.utility.home
+import com.example.pampiway.utility.MyComponents.navController
 import com.example.pampiway.utility.SIGNINSCREEN
 import com.example.pampiway.utility.SIGNUP
 import com.example.pampiway.utility.SPLASHSCREEN1
@@ -36,12 +33,14 @@ import com.example.pampiway.utility.VERIFICATION
 import com.example.pampiway.utility.VERIFYDETAILS
 import com.example.pampiway.utility.WELCOMESCREEN
 import com.example.pampiway.utility.booking
+import com.example.pampiway.utility.food
+import com.example.pampiway.utility.home
 import com.example.pampiway.utility.mart
 import com.example.pampiway.utility.service
 
 @Composable
 fun Navigation() {
-    val navController = rememberNavController()
+    navController = rememberNavController()
 
     Scaffold(
         bottomBar = {
@@ -54,7 +53,7 @@ fun Navigation() {
 
     ) { it ->
 
-        NavHost(navController, startDestination = SPLASHSCREEN1) {
+        NavHost(navController, startDestination = WELCOMESCREEN) {
             composable(SPLASHSCREEN1) {
                 SplashScreen1(navController)
             }
@@ -85,10 +84,6 @@ fun Navigation() {
 
             composable(MANUALLOCATION) {
                 ManualLocation(navController)
-            }
-
-            composable(DIALOGBOX) {
-                Add_DeviceDialog(navController)
             }
 
             composable(SIGNUP) {

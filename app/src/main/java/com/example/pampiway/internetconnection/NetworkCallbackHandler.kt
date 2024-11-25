@@ -1,4 +1,4 @@
-package com.example.pampiway.network
+package com.example.pampiway.internetconnection
 
 import android.net.ConnectivityManager
 import android.net.Network

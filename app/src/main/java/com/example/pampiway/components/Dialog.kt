@@ -36,7 +36,9 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavHostController
+import com.example.pampiway.ui.theme.blue
 import com.example.pampiway.ui.theme.grey
+import com.example.pampiway.utility.MyComponents
 import com.example.pampiway.utility.SIGNUP
 import com.example.pampiway.utility.firaSans_regular
 
@@ -44,13 +46,15 @@ import com.example.pampiway.utility.firaSans_regular
 
 //@Preview
 @Composable
-fun Add_DeviceDialog(navController: NavHostController) {
+fun Add_DeviceDialog(
+    onDismiss: () -> Unit
+) {
 
     var folderName by remember { mutableStateOf("") }
 
     Dialog(
         onDismissRequest = {
-//            onDismiss()
+            onDismiss()
         },
         properties = DialogProperties(
             usePlatformDefaultWidth = false
@@ -101,7 +105,7 @@ fun Add_DeviceDialog(navController: NavHostController) {
                 {
                     Button(
                         onClick = {
-                            navController.navigate(SIGNUP)
+                            MyComponents.mainViewModel.hideDialog()
                         },
                         shape = RoundedCornerShape(8.dp),
                         contentPadding = PaddingValues(0.dp),
@@ -110,7 +114,7 @@ fun Add_DeviceDialog(navController: NavHostController) {
                             .size(width = 60.dp, height = 30.dp),
                         colors = ButtonDefaults.buttonColors(
                             contentColor = Color.White,
-                            containerColor = Color.Blue
+                            containerColor = blue
                         ),
                         elevation = ButtonDefaults.buttonElevation(0.dp)
                     ) {

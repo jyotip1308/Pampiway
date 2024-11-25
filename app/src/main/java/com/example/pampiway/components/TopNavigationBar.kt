@@ -29,7 +29,7 @@ fun TopNavigationBar(
 ) {
     TopAppBar(
         backgroundColor = topGrey, // Light grey background
-        contentPadding = PaddingValues(start = 8.dp, end = 16.dp),
+        contentPadding = PaddingValues(top = 26.dp, start = 8.dp, end = 16.dp),
         elevation = 4.dp // Slight shadow
     ) {
         Row(

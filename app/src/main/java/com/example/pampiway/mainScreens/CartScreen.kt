@@ -1,39 +1,54 @@
 package com.example.pampiway.mainScreens
 
-import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import com.example.pampiway.R
 import com.example.pampiway.components.CounterButton
-import com.example.pampiway.components.InputTextField
+import com.example.pampiway.components.FoodCard
+import com.example.pampiway.components.RedBorderButton
 import com.example.pampiway.components.RedButton
 import com.example.pampiway.components.TopNavigationBar
-import com.example.pampiway.ui.theme.grey
 import com.example.pampiway.ui.theme.red
-import com.example.pampiway.utility.VERIFYDETAILS
+import com.example.pampiway.utility.FoodItem
 import com.example.pampiway.utility.firaSans_regular
+import com.example.pampiway.utility.firasans_bold
 import com.example.pampiway.utility.firasans_medium
 import com.example.pampiway.utility.robot_regular
 
@@ -61,8 +76,7 @@ fun CartScreen() {
                     Text( text = "Item in your cart",
                         color = Color.Black,
                         fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = firasans_medium
+                        fontFamily = firasans_bold
                     )
 
                     Text( text = "+ Add More",
@@ -85,6 +99,8 @@ fun CartScreen() {
                     modifier = Modifier.padding(top = 28.dp)
                 )
 
+                FoodCardsRow()
+
                 Divider(color = red,
                     modifier = Modifier.padding(top = 12.dp)
                 )
@@ -98,8 +114,7 @@ fun CartScreen() {
                 Text( text = "Offer & Benefit",
                     color = Color.Black,
                     fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = firasans_medium,
+                    fontFamily = firasans_bold,
                     modifier = Modifier.padding(top = 28.dp)
 
                 )
@@ -109,7 +124,7 @@ fun CartScreen() {
                     shape = RoundedCornerShape(8.dp),
                     contentPadding = PaddingValues(0.dp),
                     modifier = Modifier
-                        .padding(top = 36.dp)
+                        .padding(top = 24.dp)
                         .fillMaxWidth()
                         .height(45.dp),
                     colors = ButtonDefaults.buttonColors(
@@ -131,8 +146,20 @@ fun CartScreen() {
                     )
                 }
 
-            }
+                Divider(color = red,
+                    modifier = Modifier.padding(top = 36.dp)
+                )
 
+                BillDetails()
+
+                Spacer(modifier = Modifier.height(36.dp))
+
+                RedButton("Make Payment") { }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                RedBorderButton("Cash On Delivery") { }
+            }
         }
     }
 }
@@ -170,6 +197,24 @@ fun AddFood(){
 }
 
 @Composable
+fun FoodCardsRow() {
+    val foodItems = listOf(
+        FoodItem("King Special French\nFries", "₹360", R.drawable.frenchfries),
+        FoodItem("King Special Cookie\nCake", "₹360", R.drawable.icecream),
+        FoodItem("King Special Coca\nCola", "₹360", R.drawable.cocacola)
+    )
+
+    LazyRow(
+        modifier = Modifier.padding(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(30.dp)
+    ) {
+        items(foodItems) { foodItem ->
+            FoodCard(foodItem)
+        }
+    }
+}
+
+@Composable
 fun DeliveryTime(){
     Row(modifier = Modifier.fillMaxWidth()
         .padding(top = 16.dp),
@@ -194,6 +239,71 @@ fun DeliveryTime(){
             fontSize = 15.sp,
             fontFamily = firasans_medium,
             color = red
+        )
+    }
+}
+
+
+@Composable
+fun BillDetails(){
+    Box(modifier = Modifier.fillMaxWidth()
+        .padding(top = 30.dp)
+        .border(width = 1.dp, color = Color.LightGray, shape = RoundedCornerShape(8.dp)))
+    {
+        Column (modifier = Modifier.padding(12.dp)){
+
+            Text( text = "Bill Details",
+                color = Color.Black,
+                fontSize = 16.sp,
+                fontFamily = firasans_bold
+            )
+
+            BillText("subtotal", "540")
+            BillText("coin", "- 40")
+            BillText("delivery fee | 3.5 km", "50")
+            BillText("GST & Other Fees", "30")
+
+            Row(modifier = Modifier.fillMaxWidth()
+                .padding(top = 8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween) {
+
+                Text( text = "Total",
+                    color = Color.Black,
+                    fontSize = 18.sp,
+                    fontFamily = firasans_bold
+                )
+
+                Text( text = "550",
+                    color = Color.Black,
+                    fontSize = 18.sp,
+                    fontFamily = firasans_bold
+                )
+            }
+
+        }
+    }
+}
+
+@Composable
+fun BillText(text: String, bill: String){
+    Row(modifier = Modifier.fillMaxWidth()
+        .padding(top = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween) {
+
+        Text(
+            text = text,
+            color = Color.Black,
+            fontSize = 13.sp,
+            fontFamily = firaSans_regular
+        )
+
+        Text(
+            text = bill,
+            fontSize = 13.sp,
+            fontFamily = firaSans_regular,
+            color = Color.Black
         )
     }
 }

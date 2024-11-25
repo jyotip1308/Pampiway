@@ -36,6 +36,7 @@ import com.example.pampiway.components.InputTextField
 import com.example.pampiway.components.RedButton
 import com.example.pampiway.ui.theme.grey
 import com.example.pampiway.ui.theme.red
+import com.example.pampiway.utility.MyComponents
 import com.example.pampiway.utility.VERIFICATION
 import com.example.pampiway.utility.firasans_medium
 
@@ -72,6 +73,7 @@ fun SignIn(navController: NavController){
                 fontWeight = FontWeight.SemiBold,
                 fontFamily = firasans_medium
             )
+            Spacer(modifier = Modifier.height(10.dp))
 
             InputTextField(
                 modifier = Modifier
@@ -88,7 +90,8 @@ fun SignIn(navController: NavController){
             Spacer(modifier = Modifier.height(64.dp))
 
             RedButton("Continue", buttonHeight = 45.dp) {
-                navController.navigate(VERIFICATION)
+                MyComponents.mainViewModel.login(phone_number = mobNum)
+//                navController.navigate(VERIFICATION)
             }
 
             Spacer(modifier = Modifier.height(4.dp))
