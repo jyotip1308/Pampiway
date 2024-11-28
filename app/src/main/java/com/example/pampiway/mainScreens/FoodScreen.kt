@@ -3,8 +3,8 @@ package com.example.pampiway.mainScreens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -17,15 +17,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Button
@@ -45,37 +43,48 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.pampiway.R
-import com.example.pampiway.components.CardComponent
+import com.example.pampiway.components.FoodCard
 import com.example.pampiway.components.MenuCard
 import com.example.pampiway.components.RestaurantCard
 import com.example.pampiway.navigationScreen.BottomNavigationBar
 import com.example.pampiway.ui.theme.blue
 import com.example.pampiway.ui.theme.grey
 import com.example.pampiway.ui.theme.red
+import com.example.pampiway.ui.theme.topGrey
 import com.example.pampiway.ui.theme.yellow
+import com.example.pampiway.utility.CART
+import com.example.pampiway.utility.Menu
+import com.example.pampiway.utility.MyComponents
+import com.example.pampiway.utility.RatingFood
+import com.example.pampiway.utility.Restaurant
 import com.example.pampiway.utility.firaSans_regular
 import com.example.pampiway.utility.firasans_bold
 import com.example.pampiway.utility.firasans_medium
 
-//@Preview
 @Composable
-fun MenuScreen(navController: NavController) {
+fun FoodScreen(navController: NavHostController) {
+
+    val foodList = listOf(
+        RatingFood("Aloo Tikki Burger", "180", 4, "10", "Most selling burger of ours.", R.drawable.allu_tikkiburger),
+        RatingFood("Aloo Tikki Burger", "180", 4, "10", "Most selling burger of ours.", R.drawable.allu_tikkiburger),
+        RatingFood("Pav bhaji", "180", 4, "10", "Most selling burger of ours.", R.drawable.pav_bhaji),
+        RatingFood("Pav bhaji", "180", 4, "10", "Most selling burger of ours.", R.drawable.pav_bhaji)
+    )
+
     Scaffold(
+        topBar = { TopBarMenu()},
         bottomBar = { BottomNavigationBar(navController) }
     ) { paddingValues -> // Capture the PaddingValues provided by Scaffold
         Column(
             modifier = Modifier
 //                .fillMaxSize()
                 .background(Color.White)
-                .padding(start = 16.dp, end = 16.dp, top = 28.dp)
+                .padding(start = 16.dp, end = 16.dp, top = 10.dp)
                 .padding(paddingValues) // Apply the padding to avoid overlapping with the BottomNavigationBar
         ) {
-            TopBarMenu()
-
-            Spacer(modifier = Modifier.height(14.dp))
             SearchBarMenu()
             Spacer(modifier = Modifier.height(14.dp))
             LazyColumn(
@@ -98,7 +107,7 @@ fun MenuScreen(navController: NavController) {
 
                         Text(
                             text = "Top Rated Restaurants",
-                            fontSize = 18.sp,
+                            fontSize = 15.sp,
                             color = Color.Black,
                             fontFamily = firasans_medium,
                             fontWeight = FontWeight.Bold,
@@ -111,9 +120,46 @@ fun MenuScreen(navController: NavController) {
                             fontFamily = firasans_medium,
                         )
                     }
+                    LazyRowProductMenu()
+
+
+
+                    Row(modifier = Modifier.fillMaxWidth()
+                        .padding(top = 16.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically) {
+
+                        Text(
+                            text = "Top Rated Food",
+                            fontSize = 15.sp,
+                            color = Color.Black,
+                            fontFamily = firasans_medium,
+                            fontWeight = FontWeight.Bold,
+                        )
+
+                        Text(
+                            text = "View All",
+                            fontSize = 10.sp,
+                            color = red,
+                            fontFamily = firasans_medium,
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
                 }
 
-                item { LazyRowProductMenu() }
+
+                items(foodList){ food->
+                    FoodCard(
+                        foodName = food.name,
+                        price = food.price,
+                        rating = food.rating,
+                        ratingsCount = food.ratingsCount,
+                        description = food.description,
+                        imageResId = food.imageResId,
+                        onAddClick = { }
+                    )
+
+                }
             }
         }
     }
@@ -122,48 +168,68 @@ fun MenuScreen(navController: NavController) {
 
 @Composable
 fun TopBarMenu() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Column {
-            Text(text = "Hii, Rahul",
-                fontSize = 18.sp,
-                color = Color.Black,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = firasans_medium
-            )
+    TopAppBar(
+        modifier = Modifier.fillMaxWidth(),
+//            .height(100.dp),
+        backgroundColor = topGrey,
+        elevation = 4.dp,
+        title = {
+            Column( modifier = Modifier.fillMaxWidth()
+                .padding(start = 8.dp, end = 16.dp, bottom = 4.dp)) {
+                Text(
+                    text = "Hii, Rahul",
+                    fontSize = 15.sp,
+                    color = grey,
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = firasans_medium
+                )
+                Spacer(Modifier.height(1.dp))
+                Text(
+                    text = "Good Morning",
+                    fontSize = 15.sp,
+                    color = red,
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = firasans_medium
+                )
+            }
+        },
+        actions = {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(end = 16.dp)
+            ) {
 
-            Spacer(Modifier.height(8.dp))
-            Text(text = "Good Morning",
-                fontSize = 18.sp,
-                color = red,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = firasans_medium
-            )
+                // Second icon (Notifications)
+                Icon(
+                    Icons.Default.Notifications,
+                    contentDescription = "Notifications",
+                    modifier = Modifier.size(24.dp),
+                    tint = red
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+
+                // Third icon (ShoppingCart)
+                Icon(
+                    Icons.Default.ShoppingCart,
+                    contentDescription = "Shopping Cart",
+                    modifier = Modifier.size(24.dp)
+                        .clickable {
+                        MyComponents.navController.navigate(CART)
+                        },
+                    tint = red
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+
+                // Fourth icon (Account Circle)
+                Icon(
+                    Icons.Default.AccountCircle,
+                    contentDescription = "Account",
+                    modifier = Modifier.size(24.dp),
+                    tint = Color.Gray
+                )
+            }
         }
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(Icons.Default.Notifications,
-                contentDescription = "Notifications",
-                modifier = Modifier.size(27.dp),
-                tint = red
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Icon(Icons.Default.ShoppingCart,
-                contentDescription = "Notifications",
-                modifier = Modifier.size(27.dp),
-                tint = red
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Icon(Icons.Default.AccountCircle,
-                contentDescription = "Notifications",
-                modifier = Modifier.size(27.dp),
-                tint = Color.Gray
-            )
-        }
-    }
+    )
 }
 
 @Composable
@@ -175,7 +241,8 @@ fun SearchBarMenu() {
             .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(Icons.Default.Search, contentDescription = "Search Icon",
+        Icon(
+            Icons.Default.Search, contentDescription = "Search Icon",
             tint = red
         )
         Spacer(modifier = Modifier.width(8.dp))
@@ -190,38 +257,25 @@ fun SearchBarMenu() {
 
 @Composable
 fun ProductMenu1() {
+
+    val itemList = listOf(
+        Menu(imageResId = R.drawable.burger_, name = "Burger"),
+        Menu(imageResId = R.drawable.momos_, name = "Momos"),
+        Menu(imageResId = R.drawable.pizza_, name = "Pizza"),
+        Menu(imageResId = R.drawable.pizza_, name = "Pizza"),
+        Menu(imageResId = R.drawable.pizza_, name = "Pizza"),
+        Menu(imageResId = R.drawable.momos_, name = "Momos")
+    )
     LazyRow (
         modifier = Modifier
             .fillMaxSize(),
-        contentPadding = PaddingValues(vertical = 12.dp),
+        contentPadding = PaddingValues(vertical = 6.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-
-        item{
+        items(itemList){ item->
             MenuCard(
-                imageResId = R.drawable.burger_,
-                name = "Burger",
-            )
-        }
-
-        item{
-            MenuCard(
-                imageResId = R.drawable.momos_,
-                name = "Momos",
-            )
-        }
-
-        item{
-            MenuCard(
-                imageResId = R.drawable.pizza_,
-                name = "Pizza",
-            )
-        }
-
-        item{
-            MenuCard(
-                imageResId = R.drawable.burger_,
-                name = "Burger",
+                imageResId = item.imageResId,
+                name = item.name
             )
         }
     }
@@ -229,37 +283,26 @@ fun ProductMenu1() {
 
 @Composable
 fun ProductMenu2() {
+
+    val itemList = listOf(
+        Menu(imageResId = R.drawable.laddoo, name = "Sweet"),
+        Menu(imageResId = R.drawable.pasta_, name = "Pasta"),
+        Menu(imageResId = R.drawable.laddoo, name = "Sweet"),
+        Menu(imageResId = R.drawable.laddoo, name = "Sweet"),
+        Menu(imageResId = R.drawable.laddoo, name = "Sweet"),
+        Menu(imageResId = R.drawable.thali_, name = "Thali"),
+        Menu(imageResId = R.drawable.pizza_, name = "Pizza")
+    )
+
     LazyRow (
         modifier = Modifier
             .fillMaxSize(),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-
-        item{
+        items(itemList){ item->
             MenuCard(
-                imageResId = R.drawable.laddoo,
-                name = "Sweet",
-            )
-        }
-
-        item{
-            MenuCard(
-                imageResId = R.drawable.thali_,
-                name = "Thali",
-            )
-        }
-
-        item{
-            MenuCard(
-                imageResId = R.drawable.pasta_,
-                name = "Pasta",
-            )
-        }
-
-        item{
-            MenuCard(
-                imageResId = R.drawable.pizza_,
-                name = "Pizza",
+                imageResId = item.imageResId,
+                name = item.name
             )
         }
     }
@@ -267,57 +310,57 @@ fun ProductMenu2() {
 
 @Composable
 fun LazyRowProductMenu() {
+
+    val restaurantList = listOf(
+        Restaurant(imageResId = R.drawable.food1,
+            name = "Hotel Laziz",
+            cuisine = "North Indian",
+            rating = 4.5,
+            distance = "2.1 km",
+            time = "25 min"
+        ),
+        Restaurant(
+            imageResId = R.drawable.paneer,
+            name = "Hotel Swastik",
+            cuisine = "North Indian",
+            rating = 4.5,
+            distance = "2 km",
+            time = "22 min"
+        ),
+        Restaurant(
+            imageResId = R.drawable.momos,
+            name = "Momoz",
+            cuisine = "Chinese",
+            rating = 4.5,
+            distance = "2.1 km",
+            time = "25 min"
+        ),
+        Restaurant(
+            imageResId = R.drawable.burger,
+            name = "Burger",
+            cuisine = "Burger king",
+            rating = 4.5,
+            distance = "2.1 km",
+            time = "25 min"
+        )
+    )
     LazyRow (
         modifier = Modifier
             .fillMaxSize(),
     ) {
-
-        item{
+        items(restaurantList) { restaurant ->
             RestaurantCard(
-                imageResId = R.drawable.food1,
-                name = "Hotel Laziz",
-                cuisine = "North Indian",
-                rating = 4.5,
-                distance = "2.1 km",
-                time = "25 min"
+                imageResId = restaurant.imageResId,
+                name = restaurant.name,
+                cuisine = restaurant.cuisine,
+                rating = restaurant.rating,
+                distance = restaurant.distance,
+                time = restaurant.time
             )
-        }
 
-        item{
-            RestaurantCard(
-                imageResId = R.drawable.paneer,
-                name = "Hotel Swastik",
-                cuisine = "North Indian",
-                rating = 4.5,
-                distance = "2 km",
-                time = "22 min"
-            )
-        }
-
-        item{
-            RestaurantCard(
-                imageResId = R.drawable.momos,
-                name = "Momoz",
-                cuisine = "Chinese",
-                rating = 4.5,
-                distance = "2.1 km",
-                time = "25 min"
-            )
-        }
-
-        item{
-            RestaurantCard(
-                imageResId = R.drawable.burger,
-                name = "Burger",
-                cuisine = "Burger king",
-                rating = 4.5,
-                distance = "2.1 km",
-                time = "25 min"
-            )
         }
     }
 }
-
 
 @Composable
 fun OfferBannerMenu() {
@@ -330,7 +373,7 @@ fun OfferBannerMenu() {
         backgroundColor = yellow,
         shape = RoundedCornerShape(8.dp),
 
-    ) {
+        ) {
 
         Row(modifier = Modifier.fillMaxWidth()
             .padding(12.dp),
@@ -397,16 +440,12 @@ fun OfferBannerMenu() {
 
             )
         }
-        }
     }
+}
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewMenuScreen() {
     val moNavController = rememberNavController() // Create a mock NavController for preview
-        MenuScreen(navController = moNavController)
+    FoodScreen(navController = moNavController)
 }
-
-
-
-

@@ -59,15 +59,15 @@ fun RestaurantCard(imageResId: Int, name: String, cuisine: String, rating: Doubl
         Column(modifier = Modifier/*.weight(1f)*/
             .padding(start = 4.dp)) {
             Text(text = name,
-                fontSize = 15.sp,
+                fontSize = 14.sp,
                 fontFamily = firasans_medium,
                 color = Color.Black,
                 fontWeight = FontWeight.Bold)
 
             Text(text = cuisine,
-                fontSize = 13.sp,
+                fontSize = 12.sp,
                 fontFamily = firasans_medium,
-                color = Color.LightGray
+                color = Color.Gray
             )
 
             Row(modifier = Modifier.fillMaxWidth(),
@@ -80,9 +80,9 @@ fun RestaurantCard(imageResId: Int, name: String, cuisine: String, rating: Doubl
                 )
 
                 Text(text = " $rating | $distance| $time",
-                    fontSize = 13.sp,
+                    fontSize = 12.sp,
                     fontFamily = firasans_medium,
-                    color = Color.LightGray
+                    color = Color.Gray
                 )
             }
         }

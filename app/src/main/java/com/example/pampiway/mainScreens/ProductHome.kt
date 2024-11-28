@@ -3,6 +3,7 @@ package com.example.pampiway.mainScreens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Notifications
@@ -50,38 +52,38 @@ import com.example.pampiway.navigationScreen.BottomNavigationBar
 import com.example.pampiway.ui.theme.blue
 import com.example.pampiway.ui.theme.grey
 import com.example.pampiway.ui.theme.red
+import com.example.pampiway.ui.theme.topGrey
 import com.example.pampiway.ui.theme.yellow
+import com.example.pampiway.utility.CART
+import com.example.pampiway.utility.MyComponents
 import com.example.pampiway.utility.firaSans_regular
 import com.example.pampiway.utility.firasans_bold
 import com.example.pampiway.utility.firasans_medium
+import com.example.pampiway.utility.food
 
 //@Preview
 @Composable
 fun ProductHomeScreen(navController: NavController) {
     Scaffold(
+        topBar = { TopNavigationBar() }, // Add top navigation bar
         bottomBar = { BottomNavigationBar(navController) }
     ) { paddingValues -> // Capture the PaddingValues provided by Scaffold
         Column(
             modifier = Modifier
 //                .fillMaxSize()
                 .background(Color.White)
-                .padding(start = 16.dp, end = 16.dp, top = 28.dp)
+                .padding(start = 16.dp, end = 16.dp, top = 10.dp)
                 .padding(paddingValues) // Apply the padding to avoid overlapping with the BottomNavigationBar
-        ) {
-            TopBar()
-
-            Spacer(modifier = Modifier.height(14.dp))
+        )  {
             SearchBar()
             Spacer(modifier = Modifier.height(14.dp))
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(14.dp),
-//                contentPadding = PaddingValues(bottom = 16.dp)
             ) {
                 item { AdBanner() }
                 item { Cards() }
                 item { SendParcelCard() }
-
                 item { OfferBanner() }
 
                 item {
@@ -94,63 +96,84 @@ fun ProductHomeScreen(navController: NavController) {
                         modifier = Modifier.padding(top = 16.dp)
                     )
                 }
-
                 item { LazyRowProduct() }
             }
         }
     }
 }
 
-
 @Composable
-fun TopBar() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Column {
-            Text(text = "Hsr layout",
-                fontSize = 18.sp,
-                color = red,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = firasans_medium
-            )
+fun TopNavigationBar() {
+    TopAppBar(
+        modifier = Modifier.fillMaxWidth(),
+//            .height(100.dp),
+        backgroundColor = topGrey,
+        elevation = 4.dp,
+        title = {
+            Column( modifier = Modifier.fillMaxWidth()
+                .padding(start = 8.dp, end = 16.dp, bottom = 4.dp)) {
+                Text(
+                    text = "Hsr layout",
+                    fontSize = 15.sp,
+                    color = red,
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = firasans_medium
+                )
+                Spacer(Modifier.height(1.dp))
+                Text(
+                    text = "Good Morning",
+                    fontSize = 15.sp,
+                    color = grey,
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = firasans_medium
+                )
+            }
+        },
+        actions = {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(end = 16.dp)
+            ) {
+                // First icon (Circle)
+                Icon(
+                    painter = painterResource(R.drawable.circle),
+                    contentDescription = "Circle",
+                    modifier = Modifier.size(21.dp),
+                    tint = Color.Unspecified
+                )
+                Spacer(modifier = Modifier.width(6.dp))
 
-            Spacer(Modifier.height(8.dp))
-            Text(text = "Good Morning",
-                fontSize = 18.sp,
-                color = grey,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = firasans_medium
-            )
+                // Second icon (Notifications)
+                Icon(
+                    Icons.Default.Notifications,
+                    contentDescription = "Notifications",
+                    modifier = Modifier.size(24.dp),
+                    tint = red
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+
+                // Third icon (ShoppingCart)
+                Icon(
+                    Icons.Default.ShoppingCart,
+                    contentDescription = "Shopping Cart",
+                    modifier = Modifier.size(24.dp)
+                        .clickable {
+                            MyComponents.navController.navigate(CART)
+                        },
+                    tint = red
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+
+                // Fourth icon (Account Circle)
+                Icon(
+                    Icons.Default.AccountCircle,
+                    contentDescription = "Account",
+                    modifier = Modifier.size(24.dp),
+                    tint = Color.Gray
+                )
+            }
         }
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(painter = painterResource(R.drawable.circle),
-                modifier = Modifier.size(24.dp),
-                tint = Color.Unspecified,
-                contentDescription = "Circle")
-            Spacer(modifier = Modifier.width(8.dp))
-            Icon(Icons.Default.Notifications,
-                contentDescription = "Notifications",
-                modifier = Modifier.size(27.dp),
-                tint = red
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Icon(Icons.Default.ShoppingCart,
-                contentDescription = "Notifications",
-                modifier = Modifier.size(27.dp),
-                tint = red
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Icon(Icons.Default.AccountCircle,
-                contentDescription = "Notifications",
-                modifier = Modifier.size(27.dp),
-                tint = Color.Gray
-            )
-        }
-    }
+    )
 }
 
 @Composable
@@ -198,14 +221,22 @@ fun Cards(){
             verticalArrangement = Arrangement.SpaceBetween){
             Row(modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween) {
-                CardComponent(text = "Food", imageResId = R.drawable.fastfood)
-                CardComponent(text = "Mart", imageResId = R.drawable.basket)
+                CardComponent(text = "Food", imageResId = R.drawable.fastfood){
+                    MyComponents.navController.navigate(food)
+                }
+                CardComponent(text = "Mart", imageResId = R.drawable.basket){
+
+                }
             }
             Spacer(Modifier.height(12.dp))
             Row(modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween) {
-                CardComponent(text = "Service", imageResId = R.drawable.lservice)
-                CardComponent(text = "Booking", imageResId = R.drawable.lbooking)
+                CardComponent(text = "Service", imageResId = R.drawable.lservice){
+
+                }
+                CardComponent(text = "Booking", imageResId = R.drawable.lbooking){
+
+                }
             }
         }
 }

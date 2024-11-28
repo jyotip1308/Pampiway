@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
         MyComponents.authRepo = AuthRepo(authAPIs = MyComponents.authAPI, context)
         MyComponents.mainViewModelFactory = MainViewModelFactory(authRepo = MyComponents.authRepo,context)
         MyComponents.mainViewModel = MyComponents.mainViewModelFactory.create(MainViewModel::class.java)
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
 
         setContent {
             PampiwayTheme {
@@ -66,7 +66,10 @@ class MainActivity : ComponentActivity() {
 fun DialogBox(){
     if (MyComponents.mainViewModel.isDialogShown){
         Add_DeviceDialog(
-            onDismiss = {MyComponents.mainViewModel.hideDialog()}
+            onDismiss = {MyComponents.mainViewModel.hideDialog()},
+            onAddAddress = { newAdress ->
+                MyComponents.mainViewModel.saveAddress(newAdress)
+            }
         )
     }
 }

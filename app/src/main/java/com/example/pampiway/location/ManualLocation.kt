@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -12,12 +13,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
@@ -28,6 +32,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -42,12 +47,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.pampiway.R
+import com.example.pampiway.components.Add_DeviceDialog
+import com.example.pampiway.components.RedButton
 import com.example.pampiway.components.TopNavigationBar
+import com.example.pampiway.ui.theme.blue
 import com.example.pampiway.ui.theme.grey
 import com.example.pampiway.ui.theme.red
 import com.example.pampiway.utility.MyComponents
 import com.example.pampiway.utility.firaSans_regular
 import com.example.pampiway.utility.firasans_bold
+import com.example.pampiway.utility.home
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.launch
@@ -64,6 +73,7 @@ fun ManualLocation(
 
     // State for search text
     var searchText by remember { mutableStateOf("") }
+
 
     // State for permission
     var permissionGranted by remember { mutableStateOf(false) }
@@ -91,28 +101,6 @@ fun ManualLocation(
                 .background(Color.White)
                 .padding(start = 16.dp, end = 16.dp, top = 28.dp)
         ) {
-/*            // Back button and title
-            Row(
-                modifier = Modifier.padding(top = 16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.arrow_back),
-                    contentDescription = "Back",
-                    tint = Color.Black,
-                    modifier = Modifier
-                        .size(24.dp)
-                        .clickable { *//* handle back press *//* }
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    "Search for location",
-                    fontSize = 20.sp,
-                    color = Color.Black,
-                    fontFamily = firasans_bold,
-                    fontWeight = FontWeight.Bold
-                )
-            }*/
 
             Spacer(modifier = Modifier.height(72.dp))
 
@@ -177,7 +165,7 @@ fun ManualLocation(
                     onClick = {
                         MyComponents.mainViewModel.showDialog()
                     },
-                    colors = ButtonDefaults.buttonColors(Color.Blue),
+                    colors = ButtonDefaults.buttonColors(blue),
                 ) {
                     Text(
                         text = "Add Location",
@@ -206,11 +194,28 @@ fun ManualLocation(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Example saved addresses
-            SavedAddressItem(name = "Bus stand rajgarh", iconRes = R.drawable.flag_india)
-            SavedAddressItem(name = "sanju home rajgarh", iconRes = R.drawable.flag_india)
+            LazyColumn {
+                items(MyComponents.mainViewModel.savedAddresses){ address ->
+                    SavedAddressItem(name = address, iconRes = R.drawable.location)
+                }
+            }
+
+
+            Spacer(modifier = Modifier.height(36.dp))
+
+
+            Column(modifier = Modifier.fillMaxHeight(0.3f),
+                verticalArrangement = Arrangement.Bottom){
+
+                RedButton("Dashboard", buttonHeight = 40.dp) {
+
+                    navController.navigate(home)
+                }
+            }
+
         }
     }
+
 }
 
 @Composable
@@ -225,7 +230,7 @@ fun SavedAddressItem(name: String, iconRes: Int) {
         Icon(
             painter = painterResource(id = iconRes),
             contentDescription = name,
-//            tint = Color.Unspecified,
+            tint = Color.Unspecified,
             modifier = Modifier.size(24.dp)
         )
         Spacer(modifier = Modifier.width(8.dp))

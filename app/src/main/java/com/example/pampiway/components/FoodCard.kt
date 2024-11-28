@@ -29,6 +29,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.pampiway.ui.theme.red
 import com.example.pampiway.utility.FoodItem
 
@@ -38,8 +39,8 @@ fun FoodCard(foodItem: FoodItem) {
         shape = RoundedCornerShape(8.dp),
         elevation = 4.dp,
         modifier = Modifier
-            .width(180.dp)
-            .height(250.dp)
+            .width(170.dp)
+            .height(220.dp)
     ) {
         Column(
             modifier = Modifier
@@ -51,18 +52,18 @@ fun FoodCard(foodItem: FoodItem) {
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(140.dp)
+                    .height(130.dp)
                     .clip(RoundedCornerShape(8.dp))
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = foodItem.title,
+                fontSize = 12.sp,
                 style = MaterialTheme.typography.body1,
                 color = Color.Black,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
-            Spacer(modifier = Modifier.height(8.dp))
             Row(
                 modifier = Modifier.fillMaxWidth()
                     .padding(8.dp),
@@ -72,12 +73,13 @@ fun FoodCard(foodItem: FoodItem) {
                 Text(
                     text = foodItem.price,
                     style = MaterialTheme.typography.body1,
-                    color = Color.Black
+                    color = Color.Black,
+                    fontSize = 12.sp
                 )
 
                 Box(
                     modifier = Modifier
-                        .height(height = 30.dp)
+                        .height(height = 39.dp)
                         .width(64.dp)
                         .border(width = 1.dp, color = red, shape = RoundedCornerShape(8.dp))
 //                        .clickable(onClick = onClick)
@@ -99,6 +101,7 @@ fun FoodCard(foodItem: FoodItem) {
                         Text(
                             text = "ADD",
                             color = red,
+                            fontSize = 12.sp,
                             style = MaterialTheme.typography.button
                         )
                     }

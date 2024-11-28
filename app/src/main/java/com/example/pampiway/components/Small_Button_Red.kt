@@ -24,15 +24,17 @@ import com.example.pampiway.utility.firaSans_regular
 @Composable
 fun Small_Button_Red(
     buttonText: String,
+    modifier: Modifier,
     onClick: () -> Unit
+
 ){
     Box(
         modifier = Modifier
-            .height(height = 40.dp)
+            .height(height = 30.dp)
             .width(70.dp)
             .border(width = 1.dp, color = red, shape = RoundedCornerShape(8.dp))
             .clickable(onClick = onClick)
-            .background(color = Color.White, shape = RoundedCornerShape(16.dp))
+            .background(color = Color.White, shape = RoundedCornerShape(8.dp))
     ) {
         androidx.compose.material3.Button(
             onClick = { onClick() },
@@ -51,7 +53,7 @@ fun Small_Button_Red(
                 text = AnnotatedString(buttonText),
                 style = TextStyle(
                     color = red,
-                    fontSize = 16.sp,
+                    fontSize = 12.sp,
                     fontWeight = FontWeight.SemiBold,
                     fontFamily = firaSans_regular,
                     textAlign = TextAlign.Center

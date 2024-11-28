@@ -14,6 +14,7 @@ import com.example.pampiway.authenticationScreens.Welcome
 import com.example.pampiway.location.CurrentLocation
 import com.example.pampiway.location.ManualLocation
 import com.example.pampiway.mainScreens.BookingScreen
+import com.example.pampiway.mainScreens.CartScreen
 import com.example.pampiway.mainScreens.FoodScreen
 import com.example.pampiway.mainScreens.MartScreen
 import com.example.pampiway.mainScreens.ProductHomeScreen
@@ -21,6 +22,7 @@ import com.example.pampiway.mainScreens.ServiceScreen
 import com.example.pampiway.splashScreens.ExpandingCircleScreen
 import com.example.pampiway.splashScreens.SplashScreen1
 import com.example.pampiway.splashScreens.SplashScreen3
+import com.example.pampiway.utility.CART
 import com.example.pampiway.utility.LOCATION
 import com.example.pampiway.utility.MANUALLOCATION
 import com.example.pampiway.utility.MyComponents.navController
@@ -53,7 +55,7 @@ fun Navigation() {
 
     ) { it ->
 
-        NavHost(navController, startDestination = WELCOMESCREEN) {
+        NavHost(navController, startDestination = food) {
             composable(SPLASHSCREEN1) {
                 SplashScreen1(navController)
             }
@@ -110,6 +112,9 @@ fun Navigation() {
             }
             composable(booking) {
                 BookingScreen(navController)
+            }
+            composable(CART) {
+                CartScreen()
             }
         }
     }

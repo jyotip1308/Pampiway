@@ -67,7 +67,7 @@ fun CartScreen() {
         LazyColumn(
             modifier = Modifier.fillMaxSize()
                 .background(Color.White)
-                .padding(start = 17.dp, end = 17.dp, top = 64.dp),
+                .padding(start = 17.dp, end = 17.dp, top = 84.dp, bottom = 26.dp),
         ) {
             item {
                 Row(modifier = Modifier.fillMaxWidth(),
@@ -115,7 +115,7 @@ fun CartScreen() {
                     color = Color.Black,
                     fontSize = 18.sp,
                     fontFamily = firasans_bold,
-                    modifier = Modifier.padding(top = 28.dp)
+                    modifier = Modifier.padding(top = 16.dp)
 
                 )
 
@@ -124,7 +124,7 @@ fun CartScreen() {
                     shape = RoundedCornerShape(8.dp),
                     contentPadding = PaddingValues(0.dp),
                     modifier = Modifier
-                        .padding(top = 24.dp)
+                        .padding(top = 14.dp)
                         .fillMaxWidth()
                         .height(45.dp),
                     colors = ButtonDefaults.buttonColors(
@@ -147,16 +147,16 @@ fun CartScreen() {
                 }
 
                 Divider(color = red,
-                    modifier = Modifier.padding(top = 36.dp)
+                    modifier = Modifier.padding(top = 26.dp)
                 )
 
                 BillDetails()
 
-                Spacer(modifier = Modifier.height(36.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
                 RedButton("Make Payment") { }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(10.dp))
 
                 RedBorderButton("Cash On Delivery") { }
             }
@@ -247,7 +247,7 @@ fun DeliveryTime(){
 @Composable
 fun BillDetails(){
     Box(modifier = Modifier.fillMaxWidth()
-        .padding(top = 30.dp)
+        .padding(top = 24.dp)
         .border(width = 1.dp, color = Color.LightGray, shape = RoundedCornerShape(8.dp)))
     {
         Column (modifier = Modifier.padding(12.dp)){

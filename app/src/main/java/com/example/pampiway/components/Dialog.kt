@@ -47,10 +47,11 @@ import com.example.pampiway.utility.firaSans_regular
 //@Preview
 @Composable
 fun Add_DeviceDialog(
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    onAddAddress: (String) -> Unit // Add this parameter
 ) {
 
-    var folderName by remember { mutableStateOf("") }
+    var addressText by remember { mutableStateOf("") }
 
     Dialog(
         onDismissRequest = {
@@ -85,12 +86,12 @@ fun Add_DeviceDialog(
 //                var home by remember { mutableStateOf("")}
 
                 InputTextField(
-                    text = folderName,
+                    text = addressText,
                     label = "Location",
-                    onTextChange = {folderName = it},
+                    onTextChange = {addressText = it},
                     color = Color.Black,
 //                    iconResId = R.drawable.home_home,
-                    maxLength = 30,
+                    maxLength = 70,
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Done,
                         keyboardType = KeyboardType.Text
@@ -105,7 +106,11 @@ fun Add_DeviceDialog(
                 {
                     Button(
                         onClick = {
-                            MyComponents.mainViewModel.hideDialog()
+                            if (addressText.isNotBlank()) {
+                                onAddAddress(addressText) // Pass the address back to the caller
+                                addressText = "" // Reset the text field
+                                onDismiss() // Close the dialog
+                            }
                         },
                         shape = RoundedCornerShape(8.dp),
                         contentPadding = PaddingValues(0.dp),

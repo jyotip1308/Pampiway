@@ -39,7 +39,7 @@ fun MenuCard(imageResId: Int, name: String) {
         modifier = Modifier
             .fillMaxWidth()
             .background(Color.White, RoundedCornerShape(8.dp))
-            .padding(8.dp),
+            .padding(4.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
             Image(painter = painterResource(imageResId),
@@ -49,7 +49,7 @@ fun MenuCard(imageResId: Int, name: String) {
             )
 
             Text(text = name,
-                fontSize = 15.sp,
+                fontSize = 13.sp,
                 fontFamily = firaSans_regular,
                 color = Color.Black,
             )

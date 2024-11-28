@@ -1,6 +1,7 @@
 package com.example.pampiway.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,13 +24,12 @@ import com.example.pampiway.utility.firasans_medium
 
 //@Preview
 @Composable
-fun CardComponent(text: String, imageResId: Int) {
+fun CardComponent(text: String, imageResId: Int, onClick: ()-> Unit) {
     Card(
         modifier = Modifier
-//            .fillMaxWidth()
             .height(150.dp)
-            .width(170.dp),
-//            .padding(16.dp),
+            .width(170.dp)
+            .clickable { onClick() },
         elevation = 8.dp,
         shape = RoundedCornerShape(8.dp),
     ) {
