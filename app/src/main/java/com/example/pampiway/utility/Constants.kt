@@ -16,3 +16,27 @@ val mart = "mart"
 val service = "service"
 val booking = "booking"
 val CART = "cart"
+val EDITPROFILE = "editProfile"
+val HEALTHSUPPORT = "healthSupport"
+val NOTIFICATIONUSER = "notificationUser"
+val ORDERPLACEDSCREEN = "orderPlacedScreen"
+val ORDERPLACINGSCREEN = "orderPlacingScreen"
+val POPULARRESTAURANTS = "popularRestaurants"
+val RATINGSCREEN = "ratingScreen"
+val REFERANDEARNSCREEN = "referAndEarnScreen"
+val RESTAURANTDETAILSCREEN = "restaurantDetailScreen"
+
+val ADHARMART = "adharMart"
+val BOOKINGSCREEN = "bookingScreen"
+val CARTRAVELSSCREEN = "carTravelsScreen"
+val COUPONSCREEN = "couponScreen"
+val MARTCARTSCREEN = "martCart"
+val PARCELSCREEN = "parcel"
+
+val ELECTRICIANS = "electricians"
+
+val SERVICESCREEN = "serviceScreen"
+val SHOPSSCREEN = "shopsScreen"
+
+
+
