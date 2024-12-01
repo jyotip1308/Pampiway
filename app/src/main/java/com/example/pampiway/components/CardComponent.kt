@@ -27,8 +27,8 @@ import com.example.pampiway.utility.firasans_medium
 fun CardComponent(text: String, imageResId: Int, onClick: ()-> Unit) {
     Card(
         modifier = Modifier
-            .height(150.dp)
-            .width(170.dp)
+            .height(140.dp)
+            .width(160.dp)
             .clickable { onClick() },
         elevation = 8.dp,
         shape = RoundedCornerShape(8.dp),
@@ -41,7 +41,7 @@ fun CardComponent(text: String, imageResId: Int, onClick: ()-> Unit) {
         ) {
             Text(
                 text = text,
-                fontSize = 18.sp,
+                fontSize = 16.sp,
                 fontFamily = firasans_medium,
                 color = Color.Black,
                 fontWeight = FontWeight.Bold,

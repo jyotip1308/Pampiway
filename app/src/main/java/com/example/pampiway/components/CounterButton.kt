@@ -34,7 +34,7 @@ fun CounterButton(
     Row(
         modifier = Modifier
             .background(Color.Red, RoundedCornerShape(8.dp)) // Red background with rounded corners
-            .padding(horizontal = 8.dp, vertical = 4.dp),
+            .padding(horizontal = 6.dp, vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {

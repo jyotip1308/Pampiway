@@ -89,7 +89,7 @@ fun ProductHomeScreen(navController: NavController) {
                 item {
                     Text(
                         text = "Popular Restaurants",
-                        fontSize = 20.sp,
+                        fontSize = 16.sp,
                         color = Color.Black,
                         fontFamily = firasans_medium,
                         fontWeight = FontWeight.Bold,
@@ -114,7 +114,7 @@ fun TopNavigationBar() {
                 .padding(start = 8.dp, end = 16.dp, bottom = 4.dp)) {
                 Text(
                     text = "Hsr layout",
-                    fontSize = 15.sp,
+                    fontSize = 14.sp,
                     color = red,
                     fontWeight = FontWeight.SemiBold,
                     fontFamily = firasans_medium
@@ -122,7 +122,7 @@ fun TopNavigationBar() {
                 Spacer(Modifier.height(1.dp))
                 Text(
                     text = "Good Morning",
-                    fontSize = 15.sp,
+                    fontSize = 14.sp,
                     color = grey,
                     fontWeight = FontWeight.SemiBold,
                     fontFamily = firasans_medium
@@ -203,13 +203,13 @@ fun AdBanner() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(150.dp)
+            .height(130.dp)
             .border(width = 1.dp, color = Color.LightGray, shape = RoundedCornerShape(8.dp)),
         contentAlignment = Alignment.Center
     ) {
         Text("ADS HERE",
             color = red,
-            fontSize = 18.sp,
+            fontSize = 16.sp,
             fontWeight = FontWeight.Bold
         )
     }
@@ -260,7 +260,7 @@ fun SendParcelCard(){
         ) {
            Text(
                 text = "Send Your Parcel \nAnywhere",
-                fontSize = 18.sp,
+                fontSize = 16.sp,
                 fontFamily = firasans_medium,
                 color = Color.Black,
                 fontWeight = FontWeight.Bold,

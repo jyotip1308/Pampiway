@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.pampiway.ui.theme.grey
 import com.example.pampiway.ui.theme.topGrey
@@ -29,7 +30,7 @@ fun TopNavigationBar(
 ) {
     TopAppBar(
         backgroundColor = topGrey, // Light grey background
-        contentPadding = PaddingValues(top = 26.dp, start = 8.dp, end = 16.dp),
+        contentPadding = PaddingValues( start = 8.dp, end = 16.dp),
         elevation = 4.dp // Slight shadow
     ) {
         Row(
@@ -50,6 +51,31 @@ fun TopNavigationBar(
                 style = MaterialTheme.typography.h6, // Text style
                 fontFamily = firasans_medium
             )
+        }
+    }
+}
+
+@Composable
+fun TopNavigationBarArrow(
+    onBackClick: () -> Unit
+) {
+    TopAppBar(
+        backgroundColor = topGrey, // Light grey background
+        contentPadding = PaddingValues( start = 8.dp, end = 16.dp),
+        elevation = 4.dp // Slight shadow
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            IconButton(onClick = (onBackClick)) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack, // Back arrow icon
+                    contentDescription = "Back",
+                    tint = Color.Black // Icon color
+                )
+            }
         }
     }
 }

@@ -11,14 +11,15 @@ import com.example.pampiway.authenticationScreens.SignUpScreen
 import com.example.pampiway.authenticationScreens.Verification
 import com.example.pampiway.authenticationScreens.VerifyDetails
 import com.example.pampiway.authenticationScreens.Welcome
+import com.example.pampiway.bookingScreens.BookingDashboard
 import com.example.pampiway.location.CurrentLocation
 import com.example.pampiway.location.ManualLocation
 import com.example.pampiway.mainScreens.BookingScreen
 import com.example.pampiway.mainScreens.CartScreen
 import com.example.pampiway.mainScreens.FoodScreen
-import com.example.pampiway.mainScreens.MartScreen
 import com.example.pampiway.mainScreens.ProductHomeScreen
-import com.example.pampiway.mainScreens.ServiceScreen
+import com.example.pampiway.martScreens.MartDashboard
+import com.example.pampiway.serviceScreens.ServiceDashboard
 import com.example.pampiway.splashScreens.ExpandingCircleScreen
 import com.example.pampiway.splashScreens.SplashScreen1
 import com.example.pampiway.splashScreens.SplashScreen3
@@ -105,13 +106,13 @@ fun Navigation() {
             }
 
             composable(mart) {
-                MartScreen(navController)
+                MartDashboard(navController)
             }
             composable(service) {
-                ServiceScreen(navController)
+                ServiceDashboard(navController)
             }
             composable(booking) {
-                BookingScreen(navController)
+                BookingDashboard(navController)
             }
             composable(CART) {
                 CartScreen()
