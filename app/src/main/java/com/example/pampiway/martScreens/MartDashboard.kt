@@ -75,6 +75,7 @@ import com.example.pampiway.ui.theme.topGrey
 import com.example.pampiway.ui.theme.yellow
 import com.example.pampiway.utility.CART
 import com.example.pampiway.utility.HotDealProduct
+import com.example.pampiway.utility.MARTCARTSCREEN
 import com.example.pampiway.utility.Menu
 import com.example.pampiway.utility.MyComponents
 import com.example.pampiway.utility.Product
@@ -232,7 +233,7 @@ fun TopBarMenu() {
                     contentDescription = "Shopping Cart",
                     modifier = Modifier.size(24.dp)
                         .clickable {
-                        MyComponents.navController.navigate(CART)
+                        MyComponents.navController.navigate(MARTCARTSCREEN)
                         },
 //                    tint = red
                 )

@@ -14,19 +14,54 @@ import com.example.pampiway.authenticationScreens.Welcome
 import com.example.pampiway.bookingScreens.BookingDashboard
 import com.example.pampiway.location.CurrentLocation
 import com.example.pampiway.location.ManualLocation
-import com.example.pampiway.mainScreens.BookingScreen
 import com.example.pampiway.mainScreens.CartScreen
+import com.example.pampiway.mainScreens.EditProfile
 import com.example.pampiway.mainScreens.FoodScreen
+import com.example.pampiway.mainScreens.HelpSupport
+import com.example.pampiway.mainScreens.NotificationUser
+import com.example.pampiway.mainScreens.OrderPlaced
+import com.example.pampiway.mainScreens.OrderPlacing
+import com.example.pampiway.mainScreens.PopularRestaurantsScreen
 import com.example.pampiway.mainScreens.ProductHomeScreen
+import com.example.pampiway.mainScreens.RatingScreen
+import com.example.pampiway.mainScreens.ReferAndEarnScreen
+import com.example.pampiway.mainScreens.RestaurantDetailsScreen
+import com.example.pampiway.martScreens.AdharMart
+import com.example.pampiway.martScreens.MartCartScreen
 import com.example.pampiway.martScreens.MartDashboard
+import com.example.pampiway.martScreens.ParcelScreen
+import com.example.pampiway.martScreens.bookingScreen
+import com.example.pampiway.martScreens.carTravelScreen
+import com.example.pampiway.martScreens.couponscreen
+import com.example.pampiway.serviceScreens.ElectriciansScreen
 import com.example.pampiway.serviceScreens.ServiceDashboard
+import com.example.pampiway.serviceScreens.serviceScreen
+import com.example.pampiway.serviceScreens.shopscreen
 import com.example.pampiway.splashScreens.ExpandingCircleScreen
 import com.example.pampiway.splashScreens.SplashScreen1
 import com.example.pampiway.splashScreens.SplashScreen3
+import com.example.pampiway.utility.ADHARMART
+import com.example.pampiway.utility.BOOKINGSCREEN
 import com.example.pampiway.utility.CART
+import com.example.pampiway.utility.CARTRAVELSSCREEN
+import com.example.pampiway.utility.COUPONSCREEN
+import com.example.pampiway.utility.EDITPROFILE
+import com.example.pampiway.utility.ELECTRICIANS
+import com.example.pampiway.utility.HELPSUPPORT
 import com.example.pampiway.utility.LOCATION
 import com.example.pampiway.utility.MANUALLOCATION
+import com.example.pampiway.utility.MARTCARTSCREEN
 import com.example.pampiway.utility.MyComponents.navController
+import com.example.pampiway.utility.NOTIFICATIONUSER
+import com.example.pampiway.utility.ORDERPLACEDSCREEN
+import com.example.pampiway.utility.ORDERPLACINGSCREEN
+import com.example.pampiway.utility.PARCELSCREEN
+import com.example.pampiway.utility.POPULARRESTAURANTS
+import com.example.pampiway.utility.RATINGSCREEN
+import com.example.pampiway.utility.REFERANDEARNSCREEN
+import com.example.pampiway.utility.RESTAURANTDETAILSCREEN
+import com.example.pampiway.utility.SERVICESCREEN
+import com.example.pampiway.utility.SHOPSSCREEN
 import com.example.pampiway.utility.SIGNINSCREEN
 import com.example.pampiway.utility.SIGNUP
 import com.example.pampiway.utility.SPLASHSCREEN1
@@ -116,6 +151,63 @@ fun Navigation() {
             }
             composable(CART) {
                 CartScreen()
+            }
+            composable(EDITPROFILE) {
+                EditProfile()
+            }
+
+            composable(HELPSUPPORT) {
+                HelpSupport()
+            }
+
+            composable(NOTIFICATIONUSER) {
+                NotificationUser(navController)
+            }
+
+            composable(ORDERPLACEDSCREEN) {
+                OrderPlaced()
+            }
+            composable(ORDERPLACINGSCREEN) {
+                OrderPlacing()
+            }
+            composable(POPULARRESTAURANTS) {
+                PopularRestaurantsScreen()
+            }
+            composable(RATINGSCREEN) {
+                RatingScreen()
+            }
+            composable(REFERANDEARNSCREEN) {
+                ReferAndEarnScreen()
+            }
+            composable(RESTAURANTDETAILSCREEN) {
+                RestaurantDetailsScreen()
+            }
+            composable(ADHARMART) {
+                AdharMart()
+            }
+            composable(BOOKINGSCREEN) {
+                bookingScreen()
+            }
+            composable(CARTRAVELSSCREEN) {
+                carTravelScreen(navController)
+            }
+            composable(COUPONSCREEN) {
+                couponscreen()
+            }
+            composable(MARTCARTSCREEN) {
+                MartCartScreen()
+            }
+            composable(PARCELSCREEN) {
+                ParcelScreen()
+            }
+            composable(ELECTRICIANS) {
+                ElectriciansScreen()
+            }
+            composable(SERVICESCREEN) {
+                serviceScreen()
+            }
+            composable(SHOPSSCREEN) {
+                shopscreen()
             }
         }
     }

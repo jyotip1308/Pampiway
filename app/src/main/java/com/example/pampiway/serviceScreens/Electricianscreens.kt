@@ -53,7 +53,7 @@ data class ElectricianItem(
 
 @Preview
 @Composable
-fun FruitandshopScreen() {
+fun ElectriciansScreen() {
 
     var travelQuantity = remember {
         mutableStateOf(24)

@@ -17,7 +17,7 @@ val service = "service"
 val booking = "booking"
 val CART = "cart"
 val EDITPROFILE = "editProfile"
-val HEALTHSUPPORT = "healthSupport"
+val HELPSUPPORT = "helpSupport"
 val NOTIFICATIONUSER = "notificationUser"
 val ORDERPLACEDSCREEN = "orderPlacedScreen"
 val ORDERPLACINGSCREEN = "orderPlacingScreen"
@@ -37,6 +37,5 @@ val ELECTRICIANS = "electricians"
 
 val SERVICESCREEN = "serviceScreen"
 val SHOPSSCREEN = "shopsScreen"
-
 
 
